@@ -18,6 +18,7 @@ class Category(models.Model):
         return self.name
 
 
+
 class Brand(models.Model):
     sale_percentage = models.FloatField()
     image = models.ImageField(upload_to='api/images/brands/')
