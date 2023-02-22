@@ -3,13 +3,16 @@ from django.db import models
 class SliderImage(models.Model):
     image = models.ImageField(upload_to='api/images/sliders/')
 
-    def __str__(self):
-        return self.id
+    class Meta:
+        verbose_name_plural = "Slider Images"
 
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='api/images/categories/')
+
+    class Meta:
+        verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
@@ -18,9 +21,6 @@ class Category(models.Model):
 class Brand(models.Model):
     sale_percentage = models.FloatField()
     image = models.ImageField(upload_to='api/images/brands/')
-
-    def __str__(self):
-        return self.id
 
 
 class Item(models.Model):

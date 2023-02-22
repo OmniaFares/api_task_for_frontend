@@ -6,22 +6,21 @@ from .models import SliderImage, Category, Brand, Item
 class SliderImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = SliderImage
-        fields = ['image']
+        fields = '__all__'
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ['name', 'image']
-
+        fields = '__all__'
 
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
-        fields = ['sale_percentage', 'image']
+        fields = '__all__'
 
 
 class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
-        fields = ['name', 'image', 'price_before_sale', 'price_after_sale']
+        fields = '__all__'
