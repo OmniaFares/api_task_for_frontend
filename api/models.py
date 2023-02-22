@@ -16,9 +16,7 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
-
-
+    
 
 class Brand(models.Model):
     sale_percentage = models.FloatField()
