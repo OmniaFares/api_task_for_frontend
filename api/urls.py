@@ -15,16 +15,13 @@ schema_view = get_schema_view(
       title="API",
       default_version='v1',
       description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="testing@api.com"),
-      license=openapi.License(name="BSD License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
 )
 
 urlpatterns = [
-    path('slider_image', SliderImagesViewSet.as_view({'get': 'get_image'})),
     path('', include(router.urls)),
+    path('slider_image', SliderImagesViewSet.as_view({'get': 'get_image'})),
     path('docs', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

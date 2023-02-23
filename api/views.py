@@ -6,9 +6,8 @@ from .serializer import SliderImageSerializer, CategorySerializer, BrandSerializ
 
 
 class SliderImagesViewSet(ViewSet):
-    queryset = SliderImage.objects.all()
 
-    @action(detail=False, methods=['get'])
+    @action(detail=True, methods=['get'])
     def get_image(self, request):
         item = SliderImage.objects.order_by('?').first()
         serializer = SliderImageSerializer(item)
