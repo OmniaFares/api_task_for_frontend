@@ -1,42 +1,33 @@
-from rest_framework.response import Response
-from rest_framework.viewsets import ViewSet
-from rest_framework.decorators import action
 from .models import SliderImage, Category, Brand, Item
-from .serializer import SliderImageSerializer, CategorySerializer, BrandSerializer, ItemSerializer
+from .serializer import (
+    SliderImageSerializer,
+    CategorySerializer,
+    BrandSerializer,
+    ItemSerializer,
+)
+from rest_framework import viewsets, mixins
 
 
-class SliderImagesViewSet(ViewSet):
-    queryset = SliderImage.objects.order_by('?').first()
-    serializer = SliderImageSerializer
+class SliderImagesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    queryset = SliderImage.objects.all()
+    serializer_class = SliderImageSerializer
 
-    @action(detail=True, methods=['get'])
-    def get_image(self, request):
-        serializer = self.serializer(self.queryset)
-        return Response(serializer.data)
-    
+    def get_queryset(self):
+        if self.action == "list":
+            return [self.queryset.order_by("?").first()]
+        return super().get_queryset()
 
-class CategoryViewSet(ViewSet):
+
+class CategoryViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Category.objects.all()
-    serializer = CategorySerializer
+    serializer_class = CategorySerializer
 
-    def list(self, request):
-        serializer = self.serializer(self.queryset, many=True)
-        return Response(serializer.data)
-    
 
-class BrandViewSet(ViewSet):
+class BrandViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Brand.objects.all()
-    serializer = BrandSerializer
-
-    def list(self, request):
-        serializer = self.serializer(self.queryset, many=True)
-        return Response(serializer.data)
+    serializer_class = BrandSerializer
 
 
-class ItemsViewSet(ViewSet):
+class ItemsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     queryset = Item.objects.all()
-    serializer = ItemSerializer
-
-    def list(self, request):
-        serializer = self.serializer(self.queryset, many=True)
-        return Response(serializer.data)
+    serializer_class = ItemSerializer
